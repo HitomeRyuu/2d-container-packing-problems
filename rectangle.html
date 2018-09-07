@@ -6,12 +6,13 @@
 <script type="text/javascript">
 
 function computeRec()
-{
+{	//get value from form
 	bigLong=document.getElementById("bl").value
 	bigShort=document.getElementById("bs").value
 	smallLong=document.getElementById("sl").value
 	smallShort=document.getElementById("ss").value
 
+	//set the anwser text
 	error=document.getElementById("er")
 	result=document.getElementById("res")
 	error.style.color="red"
@@ -19,6 +20,8 @@ function computeRec()
 	error.innerHTML=""
 	result.innerHTML=""
     //console.log(typeof bl);
+
+    //forbid every unnumber
     if(bigShort==""||bigLong==""||smallLong==""||smallShort=="")
 		error.innerHTML="*Blank"
 	else if(isNaN(bigLong)||isNaN(bigShort)||isNaN(smallLong)||isNaN(smallShort))
@@ -31,54 +34,33 @@ function computeRec()
 
 function Dp(b1,b2,s1,s2)
 {
+	// if the big one is smaller than the small one
 	if(b1<Math.min(s1,s2)||b2<Math.min(s1,s2))
 		return 0;
+	// if both edges of big one are longer than the small one
+	// cut one slide rectangle within b1 and s2,remaining the big one longs b1 and wides b2-s1. the other condition is the same reason. and do a recursive.
 	else if(b2>s1&&b1>s1)
 		return Math.max(Dp(b1,b2-s1,s1,s2)+Math.floor(b1/s2),Dp(b1-s1,b2,s1,s2)+Math.floor(b2/s2));
+	// if one edge of big one is longer while another edge is shorter than the small one
 	else
 		return Math.max(Dp(b1,b2-s2,s1,s2)+Math.floor(b1/s1),Dp(b1-s2,b2,s1,s2)+Math.floor(b2/s1));
 }
 
-/*function DP2(b1,b2,s1,s2)
-{
-	var c = b1%s1
-	var d = b2%s1
-	var F[x][y] = 0
-	for(var x = c;x<=b1;x+=s1)
-	{
-		for(var y = d;y<=b2;y+=s1)
-		{
-			if(x<s2||y<s2)
-			{
-				F[x][y] = 0
-				continue;
-			}
-			var ax=ay=0
-			if(y>=s1)
-				{ax=Math.floor(x/s2)+F[x][y-s1]}
-			if(x>=s1)
-				{ay=Math.floor(y/s2)+F[x-s1][y]}
-			F[x][y]=max(ax,ay)
-			if(F[x][y]==0)
-				continue;
-		}
-	}
 
-}*/
 </script>
 </head>
 
 <body>
 <form action="javascript:computeRec()">
-<centre>计算大长方形中最多能放入多少小长方形<br><br>
-大长方形的长:<input type="text" id="bl">
+<centre>Count how many small rectangles can be filled in a big rectangle<br><br>
+long of big:<input type="text" id="bl">
 <br>
-大长方形的宽:<input type="text" id="bs">
+wide of big:<input type="text" id="bs">
 
 <br>
-小长方形的长:<input type="text" id="sl">
+long of small:<input type="text" id="sl">
 <br>
-小长方形的宽:<input type="text" id="ss">
+wide of small:<input type="text" id="ss">
 <span id="er"></span>
 <span id="res"></span>
 <br>
