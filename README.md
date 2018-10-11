@@ -10,3 +10,4 @@ There are one big rectangle and some small rectangles with same size. To comuput
 
 Reference:农健恒. 同尺寸物品装箱的动态规划算法[D]. 广西大学, 2014, 2.3-2.5.   
 Notes that the code in this paper only considered first two "if" which led to a logical bug. The third "if" can solve this bug.:)
+Warning：Time complex is O4 so the big rec can not be more than 100 times longer than the small rec. 
